@@ -1,0 +1,8 @@
+name: before-gra
+main: com.gmail.noxdawn.Plugin
+version: 0.1-ALPHA
+author: Fulva
+commands:
+  echofuck:
+    description: A test command
+api-version: '1.15'
