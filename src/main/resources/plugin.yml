@@ -5,4 +5,16 @@ author: Fulva
 commands:
   echofuck:
     description: A test command
+  setsuperdrop:
+    description: let your drop item fly
+  removesuperdrop:
+    description: let your drop item no longer fly
+  issuperdrop:
+    description: let you know if you have superdrop
+  setnofallarrow:
+    description: let arrow not fall
+  removenofallarrow:
+    description: let arrow fall
+  isnofallarrow:
+    description: let you know if your arrow fall
 api-version: '1.15'
