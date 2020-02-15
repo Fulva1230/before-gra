@@ -1,6 +1,7 @@
 package com.gmail.noxdawn;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Map;
@@ -23,6 +24,7 @@ public class Plugin extends JavaPlugin {
         context = new AnnotationConfigApplicationContext();
         context.register(AppConfig.class);
         context.registerBean("plugin", JavaPlugin.class, () -> this);
+        context.registerBean("scheduler", BukkitScheduler.class, () -> this.getServer().getScheduler());
         context.refresh();
     }
 }

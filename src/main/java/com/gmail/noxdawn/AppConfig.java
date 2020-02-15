@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 @Import({
         CommandsConfig.class,
         com.gmail.noxdawn.superdrop.SuperDropConfig.class,
-        com.gmail.noxdawn.nofallarrow.NoFallArrowConfig.class
+        com.gmail.noxdawn.nofallarrow.NoFallArrowConfig.class,
+        com.gmail.noxdawn.creeper.attacher.CreeperAttacherConfig.class
 })
 public class AppConfig {
     @Bean

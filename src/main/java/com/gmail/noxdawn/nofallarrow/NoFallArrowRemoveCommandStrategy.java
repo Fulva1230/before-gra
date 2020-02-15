@@ -9,7 +9,7 @@ public class NoFallArrowRemoveCommandStrategy implements Consumer<PlayerStateCom
     
     @Override
     public void accept(PlayerStateCommandExecutor.Context context) {
-        context.getPlayerStateController().setUnTagged();
+        context.getPersistentDataController().setUnTagged();
         context.getPlayer().sendMessage(INFO_MESSAGE);
     }
 }

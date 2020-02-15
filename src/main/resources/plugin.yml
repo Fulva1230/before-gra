@@ -17,4 +17,10 @@ commands:
     description: let arrow fall
   isnofallarrow:
     description: let you know if your arrow fall
+  creeper:
+    description: the target player will suffer from attack of a creeper
+    usage: /creeper <player-name>
+  uncreeper:
+    description: cancel the effect of the creeper command
+    usage: /uncreeper <player-name>
 api-version: '1.15'

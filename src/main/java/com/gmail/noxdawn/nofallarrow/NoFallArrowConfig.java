@@ -1,8 +1,8 @@
 package com.gmail.noxdawn.nofallarrow;
 
 import com.gmail.noxdawn.PluginCommandExecutor;
+import com.gmail.noxdawn.playerstate.PersistentDataController;
 import com.gmail.noxdawn.playerstate.PlayerStateCommandExecutor;
-import com.gmail.noxdawn.playerstate.PlayerStateController;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 public class NoFallArrowConfig {
     @Bean
     @Qualifier("startup")
-    public Listener launchArrowListener(PlayerStateController.Builder noFallArrowPlayerStateControllerBuilder, Consumer<AbstractArrow> arrowModifier) {
+    public Listener launchArrowListener(PersistentDataController.Builder noFallArrowPlayerStateControllerBuilder, Consumer<AbstractArrow> arrowModifier) {
         return new LaunchArrowListener(noFallArrowPlayerStateControllerBuilder, arrowModifier);
     }
     
@@ -26,23 +26,23 @@ public class NoFallArrowConfig {
     }
     
     @Bean("setnofallarrow")
-    public PluginCommandExecutor noFallArrowSetCommandExecutor(PlayerStateController.Builder noFallArrowPlayerStateControllerBuilder) {
+    public PluginCommandExecutor noFallArrowSetCommandExecutor(PersistentDataController.Builder noFallArrowPlayerStateControllerBuilder) {
         return new PlayerStateCommandExecutor(noFallArrowPlayerStateControllerBuilder, noFallArrowSetCommandStrategy());
     }
     
     @Bean("removenofallarrow")
-    public PluginCommandExecutor noFallArrowRemoveCommandExecutor(PlayerStateController.Builder noFallArrowPlayerStateControllerBuilder) {
+    public PluginCommandExecutor noFallArrowRemoveCommandExecutor(PersistentDataController.Builder noFallArrowPlayerStateControllerBuilder) {
         return new PlayerStateCommandExecutor(noFallArrowPlayerStateControllerBuilder, noFallArrowRemoveCommandStrategy());
     }
     
     @Bean("isnofallarrow")
-    public PluginCommandExecutor noFallArrowQueryCommandExecutor(PlayerStateController.Builder noFallArrowPlayerStateControllerBuilder) {
+    public PluginCommandExecutor noFallArrowQueryCommandExecutor(PersistentDataController.Builder noFallArrowPlayerStateControllerBuilder) {
         return new PlayerStateCommandExecutor(noFallArrowPlayerStateControllerBuilder, noFallArrowQueryCommandStrategy());
     }
     
     @Bean
-    public PlayerStateController.Builder noFallArrowPlayerStateControllerBuilder(JavaPlugin plugin) {
-        return new PlayerStateController.Builder(plugin, "nofallarrow");
+    public PersistentDataController.Builder noFallArrowPlayerStateControllerBuilder(JavaPlugin plugin) {
+        return new PersistentDataController.Builder(plugin, "nofallarrow");
     }
     
     @Bean

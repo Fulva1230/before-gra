@@ -10,7 +10,7 @@ public class NoFallArrowQueryCommandStrategy implements Consumer<PlayerStateComm
     
     @Override
     public void accept(PlayerStateCommandExecutor.Context context) {
-        if (context.getPlayerStateController().isTagged()) {
+        if (context.getPersistentDataController().isTagged()) {
             context.getPlayer().sendMessage(POSITIVE_INFO_MESSAGE);
         } else {
             context.getPlayer().sendMessage(NEGATIVE_INFO_MESSAGE);

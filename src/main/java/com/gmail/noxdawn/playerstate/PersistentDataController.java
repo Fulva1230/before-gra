@@ -1,31 +1,31 @@
 package com.gmail.noxdawn.playerstate;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PlayerStateController {
+public class PersistentDataController {
     private final static PersistentDataType DATA_TYPE = PersistentDataType.STRING;
     private final static String DUMMY_STRING = "hehe";
-    private final Player player;
+    private final PersistentDataHolder persistentDataHolder;
     private final NamespacedKey key;
     
-    public PlayerStateController(Player player, NamespacedKey key) {
-        this.player = player;
+    public PersistentDataController(PersistentDataHolder persistentDataHolder, NamespacedKey key) {
+        this.persistentDataHolder = persistentDataHolder;
         this.key = key;
     }
     
     public boolean isTagged() {
-        return player.getPersistentDataContainer().has(key, DATA_TYPE);
+        return persistentDataHolder.getPersistentDataContainer().has(key, DATA_TYPE);
     }
     
     public void setTagged() {
-        player.getPersistentDataContainer().set(key, DATA_TYPE, DUMMY_STRING);
+        persistentDataHolder.getPersistentDataContainer().set(key, DATA_TYPE, DUMMY_STRING);
     }
     
     public void setUnTagged() {
-        player.getPersistentDataContainer().remove(key);
+        persistentDataHolder.getPersistentDataContainer().remove(key);
     }
     
     
@@ -36,8 +36,8 @@ public class PlayerStateController {
             key = new NamespacedKey(plugin, keyString);
         }
         
-        public PlayerStateController build(Player player) {
-            return new PlayerStateController(player, key);
+        public PersistentDataController build(PersistentDataHolder persistentDataHolder) {
+            return new PersistentDataController(persistentDataHolder, key);
         }
     }
 }

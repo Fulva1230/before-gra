@@ -10,7 +10,7 @@ public class SuperDropQueryCommandStrategy implements Consumer<PlayerStateComman
     
     @Override
     public void accept(PlayerStateCommandExecutor.Context context) {
-        if (context.getPlayerStateController().isTagged()) {
+        if (context.getPersistentDataController().isTagged()) {
             context.getPlayer().sendMessage(INFO_MESSAGE_POSITIVE);
         } else {
             context.getPlayer().sendMessage(INFO_MESSAGE_NEGAIVE);
