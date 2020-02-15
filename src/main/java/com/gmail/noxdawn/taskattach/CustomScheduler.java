@@ -1,6 +1,5 @@
-package com.gmail.noxdawn.creeper.attacher;
+package com.gmail.noxdawn.taskattach;
 
-import com.gmail.noxdawn.taskattach.SelfStopTask;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;

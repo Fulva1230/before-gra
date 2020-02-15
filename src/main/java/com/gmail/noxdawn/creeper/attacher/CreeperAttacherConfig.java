@@ -1,7 +1,7 @@
 package com.gmail.noxdawn.creeper.attacher;
 
-import com.gmail.noxdawn.taskattach.GenericTaskAttacher;
-import com.gmail.noxdawn.taskattach.GenericTaskDettacher;
+import com.gmail.noxdawn.taskattach.CustomScheduler;
+import com.gmail.noxdawn.taskattach.GenericTaskManager;
 import com.gmail.noxdawn.taskattach.SelfStopTask;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -15,23 +15,13 @@ import java.util.HashMap;
 @Configuration
 public class CreeperAttacherConfig {
     @Bean("creeper")
-    public AttachPlayerCommand attachPlayerCommand(GenericTaskAttacher<? super Player> attacher) {
-        return new AttachPlayerCommand(attacher);
+    public AttachPlayerCommand attachPlayerCommand(GenericTaskManager<? super Player> creeperTaskManager) {
+        return new AttachPlayerCommand(creeperTaskManager);
     }
     
     @Bean("uncreeper")
-    public DettachPlayerCommand dettachPlayerCommand(GenericTaskDettacher<? super Player> dettacher) {
-        return new DettachPlayerCommand(dettacher);
-    }
-    
-    @Bean
-    public GenericTaskAttacher<Entity> entityTaskAttacher(CustomScheduler scheduler, GenericTaskDettacher<Entity> dettacher) {
-        return new GenericTaskAttacher<Entity>(scheduler, dettacher) {
-            @Override
-            public SelfStopTask getTask(Entity target) {
-                return new CreeperSpawner(target);
-            }
-        };
+    public DettachPlayerCommand dettachPlayerCommand(GenericTaskManager<? super Player> creeperTaskManager) {
+        return new DettachPlayerCommand(creeperTaskManager);
     }
     
     @Bean
@@ -40,7 +30,13 @@ public class CreeperAttacherConfig {
     }
     
     @Bean
-    public GenericTaskDettacher<Entity> entityTaskDettacher() {
-        return new GenericTaskDettacher<>(new HashMap<Entity, GenericTaskDettacher.TaskSuite>());
+    GenericTaskManager<Entity> creeperTaskManager(CustomScheduler customScheduler) {
+        return new GenericTaskManager<Entity>(customScheduler, new HashMap<>()) {
+            @Override
+            public SelfStopTask getTask(Entity target) {
+                return new CreeperSpawner(target);
+            }
+        };
     }
+    
 }

@@ -1,16 +1,16 @@
 package com.gmail.noxdawn.creeper.attacher;
 
 import com.gmail.noxdawn.PluginCommandExecutor;
-import com.gmail.noxdawn.taskattach.GenericTaskDettacher;
+import com.gmail.noxdawn.taskattach.GenericTaskManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class DettachPlayerCommand implements PluginCommandExecutor {
     private static final String INFO_MESSAGE = "You save a player from creeper's attack";
-    private final GenericTaskDettacher<? super Player> genericTaskDettacher;
+    private final GenericTaskManager<? super Player> genericTaskDettacher;
     
-    public DettachPlayerCommand(GenericTaskDettacher<? super Player> genericTaskDettacher) {
+    public DettachPlayerCommand(GenericTaskManager<? super Player> genericTaskDettacher) {
         this.genericTaskDettacher = genericTaskDettacher;
     }
     

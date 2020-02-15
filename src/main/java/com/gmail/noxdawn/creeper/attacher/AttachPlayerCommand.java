@@ -1,16 +1,16 @@
 package com.gmail.noxdawn.creeper.attacher;
 
 import com.gmail.noxdawn.PluginCommandExecutor;
-import com.gmail.noxdawn.taskattach.GenericTaskAttacher;
+import com.gmail.noxdawn.taskattach.GenericTaskManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class AttachPlayerCommand implements PluginCommandExecutor {
     private final static String INFO_MESSAGE = "You have attach creeper to someone";
-    private final GenericTaskAttacher<? super Player> attacher;
+    private final GenericTaskManager<? super Player> attacher;
     
-    public AttachPlayerCommand(GenericTaskAttacher<? super Player> attacher) {
+    public AttachPlayerCommand(GenericTaskManager<? super Player> attacher) {
         this.attacher = attacher;
     }
     

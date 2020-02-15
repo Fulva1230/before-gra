@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Configuration
+@EnableAspectJAutoProxy
 @Import({
         CommandsConfig.class,
         com.gmail.noxdawn.superdrop.SuperDropConfig.class,
@@ -30,6 +32,10 @@ public class AppConfig {
     @Bean
     public Level debugLevel() {
         return Level.INFO;
+    }
+    
+    public SimpleLogger simpleLogger(Logger debugLogger) {
+        return new SimpleLogger(debugLogger);
     }
     
     @Bean
