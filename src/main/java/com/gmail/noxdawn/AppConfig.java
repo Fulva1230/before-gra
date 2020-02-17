@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import java.util.Map;
 import java.util.Properties;
@@ -56,6 +57,13 @@ public class AppConfig {
     public Properties properties(FileConfiguration fileConfiguration) {
         PropertyConverter proertiyConverter = new PropertyConverter(fileConfiguration);
         return proertiyConverter.get();
+    }
+    
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer(Properties properties) {
+        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        propertySourcesPlaceholderConfigurer.setProperties(properties);
+        return propertySourcesPlaceholderConfigurer;
     }
     
     @Bean

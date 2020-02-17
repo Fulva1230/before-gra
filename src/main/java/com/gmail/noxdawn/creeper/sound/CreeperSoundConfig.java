@@ -4,6 +4,7 @@ import com.gmail.noxdawn.command.template.PlayerTargetCommand;
 import com.gmail.noxdawn.taskattach.*;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -37,11 +38,11 @@ public class CreeperSoundConfig {
     }
     
     @Bean
-    public GenericTaskManager<UUID> creeperSoundTaskManager(CustomScheduler scheduler, Server server) {
+    public GenericTaskManager<UUID> creeperSoundTaskManager(CustomScheduler scheduler, Server server, @Value("${creepersound.cd-ticks}") int cdTicks) {
         return new GenericTaskManager<java.util.UUID>(scheduler, new HashMap<>()) {
             @Override
             public SelfStopTask getTask(UUID target) {
-                return new CoolDwonTask(new SoundPlayAlgo(target, server), 600);
+                return new CoolDwonTask(new SoundPlayAlgo(target, server), cdTicks);
             }
         };
     }
