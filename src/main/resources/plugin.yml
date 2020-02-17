@@ -23,4 +23,14 @@ commands:
   uncreeper:
     description: cancel the effect of the creeper command
     usage: /uncreeper <player-name>
+  playcreeper:
+    description: make creeper sound behide a player
+    usage: /playcreeper <player-name>
+  playcreeperattach:
+    description: creeper sound behide a player continuesly
+    usage: /playcreeperattach [player-name]
+  playcreeperdettach:
+    description: stop creeper sound behide a player continuesly
+    usage: /playcreeperdettach [player-name]
+
 api-version: '1.15'

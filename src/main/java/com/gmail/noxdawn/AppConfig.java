@@ -1,25 +1,27 @@
 package com.gmail.noxdawn;
 
 import com.gmail.noxdawn.funcommands.CommandsConfig;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Configuration
-@EnableAspectJAutoProxy
 @Import({
         CommandsConfig.class,
         com.gmail.noxdawn.superdrop.SuperDropConfig.class,
         com.gmail.noxdawn.nofallarrow.NoFallArrowConfig.class,
-        com.gmail.noxdawn.creeper.attacher.CreeperAttacherConfig.class
+        com.gmail.noxdawn.creeper.attacher.CreeperAttacherConfig.class,
+        com.gmail.noxdawn.creeper.sound.CreeperSoundConfig.class
 })
 public class AppConfig {
     @Bean
@@ -34,9 +36,6 @@ public class AppConfig {
         return Level.INFO;
     }
     
-    public SimpleLogger simpleLogger(Logger debugLogger) {
-        return new SimpleLogger(debugLogger);
-    }
     
     @Bean
     public Level allLevel() {
@@ -51,5 +50,21 @@ public class AppConfig {
     @Bean
     public Enabler eventEnabler(JavaPlugin plugin, @Qualifier("startup") Map<String, Listener> listenerMap, Logger debugLogger) {
         return new EventEnabler(listenerMap, plugin, debugLogger);
+    }
+    
+    @Bean
+    public Properties properties(FileConfiguration fileConfiguration) {
+        PropertyConverter proertiyConverter = new PropertyConverter(fileConfiguration);
+        return proertiyConverter.get();
+    }
+    
+    @Bean
+    public Enabler debugEnabler(Logger debugLogger, Properties properties) {
+        return () -> {
+            Set<String> keys = properties.stringPropertyNames();
+            for (String key : keys) {
+                debugLogger.log(debugLogger.getLevel(), String.format("%s has value %s", key, properties.getProperty(key)));
+            }
+        };
     }
 }
