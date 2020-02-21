@@ -1,7 +1,7 @@
 package com.gmail.noxdawn.creeper.attacher;
 
 import com.gmail.noxdawn.taskattach.CustomScheduler;
-import com.gmail.noxdawn.taskattach.GenericTaskManager;
+import com.gmail.noxdawn.taskattach.GenericTaskManagerImp;
 import com.gmail.noxdawn.taskattach.SelfStopTask;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -15,12 +15,12 @@ import java.util.HashMap;
 @Configuration
 public class CreeperAttacherConfig {
     @Bean("creeper")
-    public AttachPlayerCommand attachPlayerCommand(GenericTaskManager<? super Player> creeperTaskManager) {
+    public AttachPlayerCommand attachPlayerCommand(GenericTaskManagerImp<? super Player> creeperTaskManager) {
         return new AttachPlayerCommand(creeperTaskManager);
     }
     
     @Bean("uncreeper")
-    public DettachPlayerCommand dettachPlayerCommand(GenericTaskManager<? super Player> creeperTaskManager) {
+    public DettachPlayerCommand dettachPlayerCommand(GenericTaskManagerImp<? super Player> creeperTaskManager) {
         return new DettachPlayerCommand(creeperTaskManager);
     }
     
@@ -30,8 +30,8 @@ public class CreeperAttacherConfig {
     }
     
     @Bean
-    GenericTaskManager<Entity> creeperTaskManager(CustomScheduler customScheduler) {
-        return new GenericTaskManager<Entity>(customScheduler, new HashMap<>()) {
+    GenericTaskManagerImp<Entity> creeperTaskManager(CustomScheduler customScheduler) {
+        return new GenericTaskManagerImp<Entity>(customScheduler, new HashMap<>()) {
             @Override
             public SelfStopTask getTask(Entity target) {
                 return new CreeperSpawner(target);

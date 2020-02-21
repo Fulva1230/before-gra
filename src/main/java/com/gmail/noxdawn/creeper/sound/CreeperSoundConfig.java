@@ -24,22 +24,22 @@ public class CreeperSoundConfig {
     }
     
     @Bean("playcreeperattach")
-    public PlayerTargetCommand creeperSoundTaskAttachCommand(GenericTaskManager<UUID> creeperSoundTaskManager) {
+    public PlayerTargetCommand creeperSoundTaskAttachCommand(GenericTaskManagerImp<UUID> creeperSoundTaskManager) {
         return new PlayerTargetCommand((player) -> {
             creeperSoundTaskManager.attach(player.getUniqueId());
         });
     }
     
     @Bean("playcreeperdettach")
-    public PlayerTargetCommand creeperSoundTaskDettachCommand(GenericTaskManager<UUID> creeperSoundTaskManager) {
+    public PlayerTargetCommand creeperSoundTaskDettachCommand(GenericTaskManagerImp<UUID> creeperSoundTaskManager) {
         return new PlayerTargetCommand((player) -> {
             creeperSoundTaskManager.dettach(player.getUniqueId());
         });
     }
     
     @Bean
-    public GenericTaskManager<UUID> creeperSoundTaskManager(CustomScheduler scheduler, Server server, @Value("${creepersound.cd-ticks}") int cdTicks) {
-        return new GenericTaskManager<java.util.UUID>(scheduler, new HashMap<>()) {
+    public GenericTaskManagerImp<UUID> creeperSoundTaskManager(CustomScheduler scheduler, Server server, @Value("${creepersound.cd-ticks}") int cdTicks) {
+        return new GenericTaskManagerImp<UUID>(scheduler, new HashMap<>()) {
             @Override
             public SelfStopTask getTask(UUID target) {
                 return new CoolDwonTask(new SoundPlayAlgo(target, server), cdTicks);
