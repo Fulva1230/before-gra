@@ -3,6 +3,7 @@ package com.gmail.noxdawn.creeper.attacher;
 import com.gmail.noxdawn.taskattach.CustomScheduler;
 import com.gmail.noxdawn.taskattach.GenericTaskManagerImp;
 import com.gmail.noxdawn.taskattach.SelfStopTask;
+import com.gmail.noxdawn.taskattach.TryUntilSuccessTask;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -34,7 +35,7 @@ public class CreeperAttacherConfig {
         return new GenericTaskManagerImp<Entity>(customScheduler, new HashMap<>()) {
             @Override
             public SelfStopTask getTask(Entity target) {
-                return new CreeperSpawner(target);
+                return new TryUntilSuccessTask(new CreeperSpawner(target));
             }
         };
     }

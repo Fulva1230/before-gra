@@ -1,3 +1,4 @@
 creepersound:
   cd-ticks: 600
+  path: creepersoundsave.xml
 test: ssff

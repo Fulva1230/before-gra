@@ -1,9 +1,11 @@
 package com.gmail.noxdawn.creeper.sound;
 
+import com.gmail.noxdawn.ObjectSerializer;
 import com.gmail.noxdawn.command.template.PlayerTargetCommand;
 import com.gmail.noxdawn.taskattach.*;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,26 +26,36 @@ public class CreeperSoundConfig {
     }
     
     @Bean("playcreeperattach")
-    public PlayerTargetCommand creeperSoundTaskAttachCommand(GenericTaskManagerImp<UUID> creeperSoundTaskManager) {
+    public PlayerTargetCommand creeperSoundTaskAttachCommand(GenericTaskManager<UUID> creeperSoundTaskManager) {
         return new PlayerTargetCommand((player) -> {
             creeperSoundTaskManager.attach(player.getUniqueId());
         });
     }
     
     @Bean("playcreeperdettach")
-    public PlayerTargetCommand creeperSoundTaskDettachCommand(GenericTaskManagerImp<UUID> creeperSoundTaskManager) {
+    public PlayerTargetCommand creeperSoundTaskDettachCommand(GenericTaskManager<UUID> creeperSoundTaskManager) {
         return new PlayerTargetCommand((player) -> {
             creeperSoundTaskManager.dettach(player.getUniqueId());
         });
     }
     
     @Bean
-    public GenericTaskManagerImp<UUID> creeperSoundTaskManager(CustomScheduler scheduler, Server server, @Value("${creepersound.cd-ticks}") int cdTicks) {
+    public GenericTaskManagerImp<UUID> creeperSoundTaskManagerImp(CustomScheduler scheduler, Server server, @Value("${creepersound.cd-ticks}") int cdTicks) {
         return new GenericTaskManagerImp<UUID>(scheduler, new HashMap<>()) {
             @Override
             public SelfStopTask getTask(UUID target) {
                 return new CoolDwonTask(new SoundPlayAlgo(target, server), cdTicks);
             }
         };
+    }
+    
+    @Bean
+    public GenericTaskManagerPersistenceWrapper<UUID> creeperSoundTaskManager(GenericTaskManagerImp<UUID> creeperSoundTaskManagerImp, ObjectSerializer objectSerializer) {
+        return new GenericTaskManagerPersistenceWrapper<>(creeperSoundTaskManagerImp, objectSerializer);
+    }
+    
+    @Bean
+    public ObjectSerializer objectSerializer(JavaPlugin javaPlugin, @Value("${creepersound.path}") String path) {
+        return new ObjectSerializer(javaPlugin, path);
     }
 }

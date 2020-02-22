@@ -23,6 +23,13 @@ public class Plugin extends JavaPlugin {
         getLogger().info("enabled successfully");
     }
     
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        final Map<String, Disabler> disablerMap = context.getBeansOfType(Disabler.class);
+        disablerMap.values().forEach(Disabler::disable);
+    }
+    
     private void makeContextReady() {
         context = new AnnotationConfigApplicationContext();
         context.register(AppConfig.class);
