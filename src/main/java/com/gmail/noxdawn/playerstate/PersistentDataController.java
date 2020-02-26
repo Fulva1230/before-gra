@@ -6,7 +6,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PersistentDataController {
-    private final static PersistentDataType DATA_TYPE = PersistentDataType.STRING;
+    private final static PersistentDataType<String, String> DATA_TYPE = PersistentDataType.STRING;
     private final static String DUMMY_STRING = "hehe";
     private final PersistentDataHolder persistentDataHolder;
     private final NamespacedKey key;
