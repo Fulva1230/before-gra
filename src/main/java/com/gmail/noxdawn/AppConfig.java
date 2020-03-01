@@ -22,7 +22,8 @@ import java.util.logging.Logger;
         com.gmail.noxdawn.superdrop.SuperDropConfig.class,
         com.gmail.noxdawn.nofallarrow.NoFallArrowConfig.class,
         com.gmail.noxdawn.creeper.attacher.CreeperAttacherConfig.class,
-        com.gmail.noxdawn.creeper.sound.CreeperSoundConfig.class
+        com.gmail.noxdawn.creeper.sound.CreeperSoundConfig.class,
+        com.gmail.noxdawn.contiarrow.ContiArrowConfig.class
 })
 public class AppConfig {
     @Bean

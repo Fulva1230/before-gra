@@ -32,5 +32,8 @@ commands:
   playcreeperdettach:
     description: stop creeper sound behide a player continuesly
     usage: /playcreeperdettach [player-name]
+  contiarrowitem:
+    description: make the item in your hand a super arrow launcher
+    usage: /contiarrowitem
 
 api-version: '1.15'
